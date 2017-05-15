@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+</h:head>
+<h:body>
+    <p:dialog widgetVar="registerWidget" id="registerWidgetId" width="500" modal="true" closable="false"
+              draggable="false" resizable="false">
+        <h:form id="registerForm" prependId="false">
+            <h:panelGrid columns="2">
+                <h:outputText value="#{bundle.userEmail}:"/>
+                <h:inputText value="#{userMB.user.email}" required="true" label="#{bundle.userEmail}"
+                             validator="emailValidator">
+                    <f:validateRegex
+                            pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
+                </h:inputText>
+                <h:outputLabel for="pwd1" value="#{bundle.userPassword}"/>
+                <p:password id="pwd1" value="#{userMB.user.password}" match="pwd2" label="Password 1" required="true">
+                    <f:validateLength minimum="4"/>
+                </p:password>
+
+                <h:outputLabel for="pwd2" value="#{bundle.userPasswordRepeat}"/>
+                <p:password id="pwd2" value="#{userMB.user.password}" label="Password 2" required="true">
+                    <f:validateLength minimum="4"/>
+                </p:password>
+                <h:outputText value="#{bundle.contactName}:"/>
+                <h:inputText value="#{contactMB.contact.name}" required="true" label="#{bundle.contactName}"/>
+                <h:outputText value="#{bundle.contactSurname}:"/>
+                <h:inputText value="#{contactMB.contact.surname}" required="true" label="#{bundle.contactSurname}"/>
+
+                <p:commandButton value="#{bundle.register}" icon="ui-icon-plus"
+                                 action="#{userMB.register()}" ajax="false"/>
+                <p:commandButton value="#{bundle.cancel}" icon="ui-icon-cancel" actionListener="#{userMB.resetUser()}"
+                                 onclick="registerWidget.hide();" type="button"/>
+
+            </h:panelGrid>
+        </h:form>
+    </p:dialog>
+</h:body>
+</html>
+
+
+
+
