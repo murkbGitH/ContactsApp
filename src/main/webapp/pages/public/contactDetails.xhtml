@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:body>
+    <p:dialog widgetVar="contactDetailsDialogWidget" id="contactDetailsDialogId"  width="500" modal="true"
+              closable="true" draggable="false" resizable="false">
+        <h:form id="contactDetailsDialogForm" prependId="false">
+            <h:panelGrid columns="2">
+                <h:outputText value="#{bundle.contactName}" />
+                <h:outputText value="#{contactMB.contactDetails.name}" label="#{bundle.contactName}" />
+                <h:outputText value="#{bundle.contactSurname}" />
+                <h:outputText value="#{contactMB.contactDetails.surname}"  label="#{bundle.contactSurname}" />
+                <h:outputText value="#{bundle.contactEmail}:"/>
+                <h:outputText value="#{contactMB.contactDetails.email}"  label="#{bundle.contactEmail}"/>
+                <h:outputText  value="#{bundle.contactPhone}" />
+                <h:outputText value="#{contactMB.contactDetails.phoneNumber}" label="#{bundle.contactPhone}"/>
+                <h:outputText  value="#{bundle.contactBirthdayDate}" />
+                <h:outputText  value="#{contactMB.contactDetails.birthdayDate}" pattern="dd-MM-yyyy" />
+                <p:commandButton value="#{bundle.cancel}" icon="ui-icon-cancel"
+                                 actionListener="#{contactMB.resetContactDetails}"
+                                 onclick="contactDetailsDialogWidget.hide();" type="button" ajax="false"/>
+            </h:panelGrid>
+        </h:form>
+    </p:dialog>
+</h:body>
+</html>

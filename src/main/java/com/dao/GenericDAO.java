@@ -1,7 +1,9 @@
 package com.dao;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaQuery;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -44,7 +46,6 @@ abstract class GenericDAO<T> implements Serializable {
 
     protected void delete(Object id, Class<T> classe) {
         T entityToBeRemoved = em.getReference(classe, id);
-
         em.remove(entityToBeRemoved);
     }
 
@@ -86,5 +87,18 @@ abstract class GenericDAO<T> implements Serializable {
         for (Map.Entry<String, Object> entry : parameters.entrySet()) {
             query.setParameter(entry.getKey(), entry.getValue());
         }
+    }
+
+    // Using the unchecked because JPA does not have a
+    // em.getCriteriaBuilder().createQuery()<T> method
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    public List<T> findAll() {
+        CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+        cq.select(cq.from(entityClass));
+        return em.createQuery(cq).getResultList();
+    }
+
+    public T findReferenceOnly(int entityID) {
+        return em.getReference(entityClass, entityID);
     }
 }

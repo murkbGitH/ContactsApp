@@ -10,27 +10,30 @@
         <h:form id="registerForm" prependId="false">
             <h:panelGrid columns="2">
                 <h:outputText value="#{bundle.userEmail}:"/>
-                <h:inputText value="#{userMB.user.email}" required="true" label="#{bundle.userEmail}"
+                <p:inputText id="email" value="#{userMB.user.email}"  required="true" label="#{bundle.userEmail}"
                              validator="emailValidator">
                     <f:validateRegex
                             pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
-                </h:inputText>
+                </p:inputText>
                 <h:outputLabel for="pwd1" value="#{bundle.userPassword}"/>
                 <p:password id="pwd1" value="#{userMB.user.password}" match="pwd2" label="Password 1" required="true">
                     <f:validateLength minimum="4"/>
                 </p:password>
-
                 <h:outputLabel for="pwd2" value="#{bundle.userPasswordRepeat}"/>
                 <p:password id="pwd2" value="#{userMB.user.password}" label="Password 2" required="true">
                     <f:validateLength minimum="4"/>
                 </p:password>
                 <h:outputText value="#{bundle.contactName}:"/>
-                <h:inputText value="#{contactMB.contact.name}" required="true" label="#{bundle.contactName}"/>
+                <p:inputText value="#{userMB.contact.name}" required="true" label="#{bundle.contactName}"/>
                 <h:outputText value="#{bundle.contactSurname}:"/>
-                <h:inputText value="#{contactMB.contact.surname}" required="true" label="#{bundle.contactSurname}"/>
+                <p:inputText value="#{userMB.contact.surname}" required="true" label="#{bundle.contactSurname}"/>
+                <h:outputText  value="#{bundle.contactPhone}" />
+                <p:inputMask value="#{userMB.contact.phoneNumber}" mask="(+99)999-999-999" label="#{bundle.contactPhone}"/>
+                <h:outputText  value="#{bundle.contactBirthdayDate}" />
+                <p:calendar  value="#{userMB.contact.birthdayDate}" pattern="dd-MM-yyyy" mask="true" maxdate="#{currentDate}" />
 
                 <p:commandButton value="#{bundle.register}" icon="ui-icon-plus"
-                                 action="#{userMB.register()}" ajax="false"/>
+                                 action="#{userMB.register()}" ajax="false" update=":contactsForm:contactsTable"/>
                 <p:commandButton value="#{bundle.cancel}" icon="ui-icon-cancel" actionListener="#{userMB.resetUser()}"
                                  onclick="registerWidget.hide();" type="button"/>
 

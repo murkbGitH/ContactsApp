@@ -11,7 +11,7 @@ import java.io.Serializable;
 @NamedQuery(name = "User.findUserByEmail", query = "select u from User u where u.email = :email")
 public class User implements Serializable{
 
-    public static final String FIND_BY_EMAIL= "User.findUserByEmail";
+    public static final String FIND_BY_EMAIL = "User.findUserByEmail";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

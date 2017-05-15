@@ -23,7 +23,7 @@ public class LoginMB extends AbstractMB {
         return email;
     }
 
-    public void setEmail(String login) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
@@ -45,7 +45,7 @@ public class LoginMB extends AbstractMB {
             FacesContext context = FacesContext.getCurrentInstance();
             HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
             request.getSession().setAttribute("user", user);
-            return "/pages/protected/userView.xhtml";
+            return "/pages/protected/userView.xhtml?faces-redirect=true";
         }
 
         displayErrorMessageToUser("Check your login/password");

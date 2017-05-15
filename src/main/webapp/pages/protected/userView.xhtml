@@ -2,11 +2,50 @@
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-    <title>Title</title>
-</head>
-<body>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:ui="http://java.sun.com/jsf/facelets">
 
-</body>
+<h:body>
+    <ui:composition template="/pages/templates/loggedTemplate.xhtml">
+        <ui:define name="divMain2">
+            <h3>Oto lista kontaktów dostępnych w bazie:</h3>
+            <h:form id="contactsForm">
+                <br/>
+                <p:dataTable id="contactsTable" value="#{contactMB.allContacts}" var="contact"
+                             emptyMessage="#{bundle.noRecords}" paginator="true" rows="15"
+                             paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="10,15,20">
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.contactName}"/>
+                        </f:facet>
+                        <h:outputText value="#{contact.name}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.contactSurname}"/>
+                        </f:facet>
+                        <h:outputText value="#{contact.surname}"/>
+                    </p:column>
+                    <p:column>
+                        <p:commandButton value="#{bundle.details} / #{bundle.editContact}" icon="ui-icon-pencil"
+                                         onclick="contactEditDialogWidget.show();" update=":contactEditDialogForm">
+                            <f:setPropertyActionListener target="#{contactMB.contactDetails}" value="#{contact}" />
+                        </p:commandButton>
+                    </p:column>
+                    <p:column>
+                        <p:commandButton value="#{bundle.delete}" icon="ui-icon-trash"  onclick="contactDeleteDialogWidget.show();"
+                                         actionListener="#{contactMB.resetContact}"  update=":contactDeleteDialogForm" >
+                            <f:setPropertyActionListener target="#{contactMB.contactDetails}" value="#{contact}" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+            <ui:include src="/pages/protected/contactEdit.xhtml"/>
+            <ui:include src="/pages/protected/contactDelete.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+
+</h:body>
 </html>

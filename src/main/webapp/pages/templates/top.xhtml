@@ -7,8 +7,8 @@
     <ui:composition>
 
             <h:form>
-                #{bundle.loginRequest}<p:commandButton value="Log in" update=":loginForm" onclick="loginWidget.show();" />
-                #{bundle.registerRequest}<p:commandButton value="Register" update=":registerForm" onclick="registerWidget.show();" />
+                #{bundle.loginRequest}  <p:commandButton value="Log in" update=":loginForm" onclick="loginWidget.show();" />
+                #{bundle.registerRequest}  <p:commandButton value="Register" update=":registerForm" onclick="registerWidget.show();" />
             </h:form>
             <ui:include src="/pages/public/login.xhtml"/>
             <ui:include src="/pages/public/register.xhtml"/>

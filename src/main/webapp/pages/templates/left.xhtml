@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+    <ui:composition>
+        <h:form>
+            #{bundle.menu}
+            <p:growl autoUpdate="true"/>
+            <p:commandButton styleClass="menuButton" value="#{bundle.addContact}" icon="ui-icon-plus"
+                             update=":contactCreateDialogForm" onclick="contactCreateDialogWidget.show();"/>
+            <br />
+            <br />
+            <p:commandButton styleClass="menuButton" icon="ui-icon-cancel"
+                             action="#{userMB.logOut()}" value="#{bundle.logOut}"
+                             ajax="false" immediate="true" />
+            <br />
+        </h:form>
+        <ui:include src="/pages/protected/contactCreate.xhtml"/>
+    </ui:composition>
+</h:body>
+</html>

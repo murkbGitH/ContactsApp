@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:body>
+    <p:dialog widgetVar="contactEditDialogWidget" id="contactEditDialogId"  width="500" modal="true"
+              closable="true" draggable="false" resizable="false">
+        <h:form id="contactEditDialogForm" prependId="false">
+            <h:panelGrid columns="2">
+                <h:outputText value="#{bundle.contactName}" />
+                <h:inputText value="#{contactMB.contactDetails.name}" required="true" label="#{bundle.contactName}" >
+                    <f:validateLength minimum="3" />
+                </h:inputText>
+                <h:outputText value="#{bundle.contactSurname}" />
+                <h:inputText value="#{contactMB.contactDetails.surname}" required="true" label="#{bundle.contactSurname}" >
+                    <f:validateLength minimum="3" />
+                </h:inputText>
+                <h:outputText value="#{bundle.contactEmail}:"/>
+                <h:inputText value="#{contactMB.contactDetails.email}" required="true" label="#{bundle.contactEmail}"
+                             validator="emailValidator">
+                    <f:validateRegex
+                            pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
+                </h:inputText>
+                <h:outputText  value="#{bundle.contactPhone}" />
+                <p:inputMask value="#{contactMB.contactDetails.phoneNumber}" mask="(+99)999-999-999" label="#{bundle.contactPhone}"/>
+                <h:outputText  value="#{bundle.contactBirthdayDate}" />
+                <p:calendar  value="#{contactMB.contactDetails.birthdayDate}" pattern="dd-MM-yyyy" mask="true" maxdate="#{currentDate}" />
+
+                <p:commandButton value="#{bundle.update}" icon="ui-icon-plus" action="#{contactMB.updateContact}"
+                                 update=":messageGrowl :contactsForm:contactsTable" ajax="false"/>
+                <p:commandButton value="#{bundle.cancel}" icon="ui-icon-cancel"
+                                 actionListener="#{contactMB.resetContactDetails}"
+                                 onclick="contactEditDialogWidget.hide();" type="button" ajax="false"/>
+            </h:panelGrid>
+        </h:form>
+    </p:dialog>
+</h:body>
+</html>

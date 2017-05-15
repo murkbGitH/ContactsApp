@@ -11,4 +11,8 @@ public class ContactDAO extends GenericDAO<Contact> {
     public ContactDAO() {
         super(Contact.class);
     }
+
+    public void delete(Contact contact) {
+        super.delete(contact.getId(), Contact.class);
+    }
 }

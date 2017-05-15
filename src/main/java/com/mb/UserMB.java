@@ -7,6 +7,8 @@ import com.model.User;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 
 /**
@@ -80,12 +82,13 @@ public class UserMB extends  AbstractMB implements Serializable {
 
             if (!userFacade.emailAlreadyExists(user.getEmail())) {
                 userFacade.createUser(user);
-                contactFacade.createContact(contact);
+                contact.setEmail(user.getEmail());
+                getContactFacade().createContact(contact);
                 closeDialog();
                 displayInfoMessageToUser("Register with success!");
                 resetUser();
                 resetContact();
-                return "/pages/public/loginOrRegister.xhtml";
+                return "/pages/public/index.xhtml";
             }
         } catch (Exception e) {
             keepDialogOpen();
@@ -93,6 +96,15 @@ public class UserMB extends  AbstractMB implements Serializable {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private HttpServletRequest getRequest() {
+        return (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+    }
+
+    public String logOut() {
+        getRequest().getSession().invalidate();
+        return "/pages/public/index.xhtml";
     }
 
 
