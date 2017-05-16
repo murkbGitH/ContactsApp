@@ -5,8 +5,6 @@ import com.model.Contact;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
-
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -129,6 +127,15 @@ public class ContactMB extends AbstractMB implements Serializable {
             loadContactsList();
         }
         return contactsList;
+    }
+
+    public String checkSubcategory(){
+        if(contactDetails.getBusinessContactCategory()!=null){
+            return contactDetails.getBusinessContactCategory().getCategory();
+        }else if(contactDetails.getOtherContactCategory()!=null){
+            return contactDetails.getOtherContactCategory();
+        }
+        return "private";
     }
 
 }

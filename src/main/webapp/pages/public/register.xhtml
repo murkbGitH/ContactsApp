@@ -27,11 +27,15 @@
                 <p:inputText value="#{userMB.contact.name}" required="true" label="#{bundle.contactName}"/>
                 <h:outputText value="#{bundle.contactSurname}:"/>
                 <p:inputText value="#{userMB.contact.surname}" required="true" label="#{bundle.contactSurname}"/>
+                <h:outputText  value="#{bundle.mainContactCategory}" />
+                <p:selectOneMenu value="#{userMB.contact.mainContactCategory}" converter="#{mainContactCategoryConverter}">
+                    <f:selectItem itemValue="#{contactCategoriesMB.mainCategories.get(1)}"
+                                  itemLabel="#{contactCategoriesMB.mainCategories.get(1).category}" />
+                </p:selectOneMenu>
                 <h:outputText  value="#{bundle.contactPhone}" />
                 <p:inputMask value="#{userMB.contact.phoneNumber}" mask="(+99)999-999-999" label="#{bundle.contactPhone}"/>
                 <h:outputText  value="#{bundle.contactBirthdayDate}" />
                 <p:calendar  value="#{userMB.contact.birthdayDate}" pattern="dd-MM-yyyy" mask="true" maxdate="#{currentDate}" />
-
                 <p:commandButton value="#{bundle.register}" icon="ui-icon-plus"
                                  action="#{userMB.register()}" ajax="false" update=":contactsForm:contactsTable"/>
                 <p:commandButton value="#{bundle.cancel}" icon="ui-icon-cancel" actionListener="#{userMB.resetUser()}"

@@ -23,6 +23,28 @@
                     <f:validateRegex
                             pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
                 </h:inputText>
+                <h:outputText  value="#{bundle.mainContactCategory}" />
+                <p:selectOneMenu value="#{contactMB.contactDetails.mainContactCategory}" converter="#{mainContactCategoryConverter}">
+                    <p:ajax  update="subcategoryBusinessEdit"/>
+                    <p:ajax  update="subcategoryOtherEdit"/>
+                    <f:selectItem itemValue="#{null}" itemLabel="--select--" />
+                    <f:selectItems value="#{contactCategoriesMB.mainCategories}" var="mainCat" itemValue="#{mainCat}"
+                                   itemLabel="#{mainCat.category}" />
+                </p:selectOneMenu>
+                <h:outputText  value="#{bundle.contactSubcategory}" />
+                <p:selectOneMenu id="subcategoryBusinessEdit" value="#{contactMB.contactDetails.businessContactCategory}"
+                                 converter="#{businessContactCategoryConverter}"
+                                 disabled="#{contactMB.contactDetails.mainContactCategory.category!='business'}">
+                    <f:selectItem itemValue="#{null}" itemLabel="--select--" />
+                    <f:selectItems value="#{contactCategoriesMB.businessCategories}" var="businessCat"
+                                   itemValue="#{businessCat}" itemLabel="#{businessCat.category}"/>
+                </p:selectOneMenu>
+                <h:outputText value="#{bundle.contactSubcategory}" />
+                <h:inputText id="subcategoryOtherEdit" value="#{contactMB.contactDetails.otherContactCategory}"
+                             label="#{bundle.contactSubcategory}"
+                             disabled="#{contactMB.contactDetails.mainContactCategory.category!='other'}" >
+                    <f:validateLength minimum="3" />
+                </h:inputText>
                 <h:outputText  value="#{bundle.contactPhone}" />
                 <p:inputMask value="#{contactMB.contactDetails.phoneNumber}" mask="(+99)999-999-999" label="#{bundle.contactPhone}"/>
                 <h:outputText  value="#{bundle.contactBirthdayDate}" />

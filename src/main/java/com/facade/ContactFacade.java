@@ -39,6 +39,12 @@ public class ContactFacade {
         updatedContact.setName(contact.getName());
         updatedContact.setSurname(contact.getSurname());
         updatedContact.setEmail(contact.getEmail());
+        updatedContact.setMainContactCategory(contact.getMainContactCategory());
+        if(contact.getBusinessContactCategory()!=null){
+            updatedContact.setBusinessContactCategory(contact.getBusinessContactCategory());
+        }else if(contact.getOtherContactCategory()!=null){
+            updatedContact.setOtherContactCategory(contact.getOtherContactCategory());
+        }
         updatedContact.setPhoneNumber(contact.getPhoneNumber());
         updatedContact.setBirthdayDate(contact.getBirthdayDate());
         contactDAO.commitAndCloseTransaction();

@@ -22,9 +22,15 @@ public class Contact implements Serializable {
     private String email;
 
     @ManyToOne
-    @JoinColumn(name = "contactCategoryID")
-    private ContactCategory contactCategory;
+    @JoinColumn(name = "mainContactCategoryID")
+    private MainContactCategory mainContactCategory;
 
+    @ManyToOne
+    @JoinColumn(name = "businessContactCategoryID")
+    private BusinessContactCategory businessContactCategory;
+
+
+    private String otherContactCategory;
     private String phoneNumber;
     private Date birthdayDate;
 
@@ -60,12 +66,28 @@ public class Contact implements Serializable {
         this.email = email;
     }
 
-    public ContactCategory getContactCategory() {
-        return contactCategory;
+    public MainContactCategory getMainContactCategory() {
+        return mainContactCategory;
     }
 
-    public void setContactCategory(ContactCategory contactCategory) {
-        this.contactCategory = contactCategory;
+    public void setMainContactCategory(MainContactCategory mainContactCategory) {
+        this.mainContactCategory = mainContactCategory;
+    }
+
+    public BusinessContactCategory getBusinessContactCategory() {
+        return businessContactCategory;
+    }
+
+    public void setBusinessContactCategory(BusinessContactCategory businessContactCategory) {
+        this.businessContactCategory = businessContactCategory;
+    }
+
+    public String getOtherContactCategory() {
+        return otherContactCategory;
+    }
+
+    public void setOtherContactCategory(String otherContactCategory) {
+        this.otherContactCategory = otherContactCategory;
     }
 
     public String getPhoneNumber() {

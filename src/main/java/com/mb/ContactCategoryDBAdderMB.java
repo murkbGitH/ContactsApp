@@ -1,6 +1,7 @@
 package com.mb;
 
-import com.model.ContactCategory;
+import com.model.BusinessContactCategory;
+import com.model.MainContactCategory;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
@@ -16,32 +17,60 @@ import javax.persistence.Persistence;
 @ApplicationScoped
 public class ContactCategoryDBAdderMB {
 
-    public boolean alreadyExecuted = false;
+    public boolean alreadyExecutedMain = false;
+    private String[] mainCategories = {"business", "private", "other"};
+    private MainContactCategory[] mainContactCategories = new MainContactCategory[3];
 
-    private String[] categoriesNames = {"służbowy", "prywatny", "inny"};
+    public boolean alreadyExecutedBusiness = false;
+    private String[] businessCategories = {"boss", "client", "co-worker"};
+    private BusinessContactCategory[] businessContactCategories = new BusinessContactCategory[3];
 
-    private ContactCategory[] contactCategories = new ContactCategory[3];
 
-    public void init(){
-        if(!alreadyExecuted) {
-            for(int i=0; i<categoriesNames.length;i++) {
-                contactCategories[i]=new ContactCategory();
-                contactCategories[i].setId(i+1);
-                contactCategories[i].setCategory(categoriesNames[i]);
+    public void addMainContactCategories(){
+        if(!alreadyExecutedMain) {
+            for(int i=0; i<mainCategories.length;i++) {
+                mainContactCategories[i]=new MainContactCategory();
+                mainContactCategories[i].setId(i+1);
+                mainContactCategories[i].setCategory(mainCategories[i]);
             }
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("ContactsAppUnit");
+            EntityManager em = emf.createEntityManager();
+            em.getTransaction().begin();
+            for(MainContactCategory mainContactCategory : mainContactCategories){
 
-            for(ContactCategory contactCategory:contactCategories){
-                EntityManagerFactory emf = Persistence.createEntityManagerFactory("ContactsAppUnit");
-                EntityManager em = emf.createEntityManager();
-                em.getTransaction().begin();
-                if(em.find(ContactCategory.class,contactCategory.getId())==null) {
-                    em.persist(contactCategory);
-                    em.getTransaction().commit();
+                if(em.find(MainContactCategory.class, mainContactCategory.getId())==null) {
+                    em.persist(mainContactCategory);
                 }
-                em.close();
-                emf.close();
             }
-            alreadyExecuted=true;
+            em.getTransaction().commit();
+            em.close();
+            emf.close();
+            alreadyExecutedMain=true;
+        }
+
+    }
+
+    public void addBusinessContactCategories(){
+        if(!alreadyExecutedBusiness) {
+            for(int i=0; i<businessCategories.length;i++) {
+                businessContactCategories[i]=new BusinessContactCategory();
+                businessContactCategories[i].setId(i+1);
+                businessContactCategories[i].setCategory(businessCategories[i]);
+            }
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("ContactsAppUnit");
+            EntityManager em = emf.createEntityManager();
+            em.getTransaction().begin();
+            for(BusinessContactCategory businessContactCategory : businessContactCategories){
+                if(em.find(BusinessContactCategory.class, businessContactCategory.getId())==null) {
+                    em.persist(businessContactCategory);
+
+                }
+
+            }
+            em.getTransaction().commit();
+            em.close();
+            emf.close();
+            alreadyExecutedBusiness=true;
         }
 
     }

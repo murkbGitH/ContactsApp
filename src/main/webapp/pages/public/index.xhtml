@@ -5,14 +5,15 @@
 
 <head>
     <f:metadata>
-        <f:event type="preRenderView" listener="#{contactCategoryDBAdderMB.init}"/>
+        <f:event type="preRenderView" listener="#{contactCategoryDBAdderMB.addMainContactCategories}"/>
+        <f:event type="preRenderView" listener="#{contactCategoryDBAdderMB.addBusinessContactCategories}"/>
     </f:metadata>
 </head>
 
 <h:body>
     <ui:composition template="/pages/templates/master.xhtml">
         <ui:define name="divMain">
-            <h3>Oto lista kontaktów dostępnych w bazie:</h3>
+            <h3>All contacts in the database:</h3>
             <h:form id="contactsForm">
                 <br/>
                 <p:dataTable id="contactsTable" value="#{contactMB.allContacts}" var="contact"
@@ -30,6 +31,12 @@
                             <h:outputText value="#{bundle.contactSurname}"/>
                         </f:facet>
                         <h:outputText value="#{contact.surname}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{bundle.category}"/>
+                        </f:facet>
+                        <h:outputText value="#{contact.mainContactCategory.category}"/>
                     </p:column>
                     <p:column>
                         <p:commandButton value="#{bundle.details}" icon="ui-icon-arrowstop-1-e"

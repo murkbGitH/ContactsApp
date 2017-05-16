@@ -5,8 +5,8 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <h:body>
-    <p:dialog widgetVar="contactCreateDialogWidget" id="contactCreateDialogId"  width="500" modal="true"
-              closable="true" draggable="false" resizable="false">
+    <p:dialog widgetVar="contactCreateDialogWidget" id="contactCreateDialogId" width="500" modal="true"
+              closable="true" draggable="false" resizable="false" >
         <h:form id="contactCreateDialogForm" prependId="false">
             <h:panelGrid columns="2">
                 <h:outputText value="#{bundle.contactName}" />
@@ -17,11 +17,33 @@
                 <h:inputText value="#{contactMB.contact.surname}" required="true" label="#{bundle.contactSurname}" >
                     <f:validateLength minimum="3" />
                 </h:inputText>
-                <h:outputText value="#{bundle.contactEmail}:"/>
+                <h:outputText value="#{bundle.contactEmail}"/>
                 <h:inputText value="#{contactMB.contact.email}" required="true" label="#{bundle.contactEmail}"
                              validator="emailValidator">
                     <f:validateRegex
                             pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
+                </h:inputText>
+                <h:outputText  value="#{bundle.mainContactCategory}" />
+                <p:selectOneMenu value="#{contactMB.contact.mainContactCategory}" converter="#{mainContactCategoryConverter}">
+                    <p:ajax  update="subcategoryBusiness"/>
+                    <p:ajax  update="subcategoryOther"/>
+                    <f:selectItem itemValue="#{null}" itemLabel="--select--" />
+                    <f:selectItems value="#{contactCategoriesMB.mainCategories}" var="mainCat" itemValue="#{mainCat}"
+                                   itemLabel="#{mainCat.category}" />
+                </p:selectOneMenu>
+                <h:outputText  value="#{bundle.contactSubcategory}" />
+                <p:selectOneMenu id="subcategoryBusiness" value="#{contactMB.contact.businessContactCategory}"
+                                 converter="#{businessContactCategoryConverter}"
+                                 disabled="#{contactMB.contact.mainContactCategory.category!='business'}">
+                    <f:selectItem itemValue="#{null}" itemLabel="--select--" />
+                    <f:selectItems value="#{contactCategoriesMB.businessCategories}" var="businessCat"
+                                   itemValue="#{businessCat}" itemLabel="#{businessCat.category}"/>
+                </p:selectOneMenu>
+                <h:outputText value="#{bundle.contactSubcategory}" />
+                <h:inputText id="subcategoryOther" value="#{contactMB.contact.otherContactCategory}"
+                             label="#{bundle.contactSubcategory}"
+                             disabled="#{contactMB.contact.mainContactCategory.category!='other'}" >
+                    <f:validateLength minimum="3" />
                 </h:inputText>
                 <h:outputText  value="#{bundle.contactPhone}" />
                 <p:inputMask value="#{contactMB.contact.phoneNumber}" mask="(+99)999-999-999" label="#{bundle.contactPhone}"/>

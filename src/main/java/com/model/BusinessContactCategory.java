@@ -9,14 +9,14 @@ import java.util.List;
  */
 
 @Entity
-public class ContactCategory implements Serializable{
+public class BusinessContactCategory implements Serializable{
 
     @Id
     private int id;
 
     private String category;
 
-    @OneToMany(targetEntity = Contact.class, mappedBy = "contactCategory", cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Contact.class, mappedBy = "businessContactCategory", cascade = CascadeType.ALL)
     private List<Contact> contactList;
 
     public int getId() {
@@ -48,7 +48,7 @@ public class ContactCategory implements Serializable{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ContactCategory that = (ContactCategory) o;
+        BusinessContactCategory that = (BusinessContactCategory) o;
 
         return id == that.id;
     }

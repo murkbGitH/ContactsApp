@@ -15,10 +15,16 @@
                 <h:outputText value="#{contactMB.contactDetails.surname}"  label="#{bundle.contactSurname}" />
                 <h:outputText value="#{bundle.contactEmail}:"/>
                 <h:outputText value="#{contactMB.contactDetails.email}"  label="#{bundle.contactEmail}"/>
+                <h:outputText value="#{bundle.mainContactCategory}" />
+                <h:outputText value="#{contactMB.contactDetails.mainContactCategory.category}"  label="#{bundle.mainContactCategory}" />
+                <h:outputText value="#{bundle.contactSubcategory}" />
+                <h:outputText value="#{contactMB.checkSubcategory()}"  label="#{bundle.contactSubcategory}" />
                 <h:outputText  value="#{bundle.contactPhone}" />
                 <h:outputText value="#{contactMB.contactDetails.phoneNumber}" label="#{bundle.contactPhone}"/>
                 <h:outputText  value="#{bundle.contactBirthdayDate}" />
-                <h:outputText  value="#{contactMB.contactDetails.birthdayDate}" pattern="dd-MM-yyyy" />
+                <h:outputText  value="#{contactMB.contactDetails.birthdayDate}" >
+                    <f:convertDateTime pattern="dd-MM-yyyy"/>
+                </h:outputText>
                 <p:commandButton value="#{bundle.cancel}" icon="ui-icon-cancel"
                                  actionListener="#{contactMB.resetContactDetails}"
                                  onclick="contactDetailsDialogWidget.hide();" type="button" ajax="false"/>
