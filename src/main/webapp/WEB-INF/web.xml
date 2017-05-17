@@ -21,6 +21,14 @@
     <param-value>Development</param-value>
   </context-param>
 
+  <filter>
+    <filter-name>DefaultUserPagesFilter</filter-name>
+    <filter-class>com.filter.DefaultUserPagesFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>DefaultUserPagesFilter</filter-name>
+    <url-pattern>/pages/protected/*</url-pattern>
+  </filter-mapping>
 </web-app>
 
 
