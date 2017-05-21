@@ -18,8 +18,7 @@
                     <f:validateLength minimum="3" />
                 </h:inputText>
                 <h:outputText value="#{bundle.contactEmail}:"/>
-                <h:inputText value="#{contactMB.contactDetails.email}" required="true" label="#{bundle.contactEmail}"
-                             validator="emailValidator">
+                <h:inputText value="#{contactMB.contactDetails.email}" required="true" label="#{bundle.contactEmail}">
                     <f:validateRegex
                             pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
                 </h:inputText>

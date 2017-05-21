@@ -19,7 +19,7 @@
                 </h:inputText>
                 <h:outputText value="#{bundle.contactEmail}"/>
                 <h:inputText value="#{contactMB.contact.email}" required="true" label="#{bundle.contactEmail}"
-                             validator="emailValidator">
+                             validator="contactEmailValidator">
                     <f:validateRegex
                             pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/>
                 </h:inputText>
