@@ -1,6 +1,7 @@
 package com.mb;
 
 import com.facade.ContactFacade;
+import com.facade.UserFacade;
 import com.model.Contact;
 
 import javax.faces.bean.ManagedBean;

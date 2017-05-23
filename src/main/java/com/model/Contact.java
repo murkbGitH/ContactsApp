@@ -9,7 +9,10 @@ import java.util.Date;
  */
 
 @Entity
+@NamedQuery(name = "Contact.findContactByEmail", query = "select c from Contact c where c.email = :email")
 public class Contact implements Serializable {
+
+    public static final String FIND_BY_EMAIL = "Contact.findContactByEmail";
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

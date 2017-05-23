@@ -13,6 +13,13 @@ public class ContactFacade {
 
     private ContactDAO contactDAO = new ContactDAO();
 
+    public boolean emailAlreadyExists(String email) {
+        contactDAO.beginTransaction();
+        Contact contact = contactDAO.findContactByEmail(email);
+        contactDAO.closeTransaction();
+        return contact != null;
+    }
+
     public void createContact(Contact contact) {
         contactDAO.beginTransaction();
         contactDAO.save(contact);
@@ -40,10 +47,15 @@ public class ContactFacade {
         updatedContact.setSurname(contact.getSurname());
         updatedContact.setEmail(contact.getEmail());
         updatedContact.setMainContactCategory(contact.getMainContactCategory());
-        if(contact.getBusinessContactCategory()!=null){
+        if(contact.getMainContactCategory().getCategory().equals("business")){
             updatedContact.setBusinessContactCategory(contact.getBusinessContactCategory());
-        }else if(contact.getOtherContactCategory()!=null){
+            updatedContact.setOtherContactCategory(null);
+        }else if(contact.getMainContactCategory().getCategory().equals("other")){
             updatedContact.setOtherContactCategory(contact.getOtherContactCategory());
+            updatedContact.setBusinessContactCategory(null);
+        }else if(contact.getMainContactCategory().getCategory().equals("private")) {
+            updatedContact.setBusinessContactCategory(null);
+            updatedContact.setOtherContactCategory(null);
         }
         updatedContact.setPhoneNumber(contact.getPhoneNumber());
         updatedContact.setBirthdayDate(contact.getBirthdayDate());
